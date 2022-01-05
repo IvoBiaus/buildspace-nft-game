@@ -9,14 +9,23 @@ const main = async () => {
       "https://i.imgur.com/hWGeUua.jpeg",
     ],
     [1000, 300, 500, 800], // HP
-    [500, 200, 200, 400] // Attack damage
+    [500, 200, 200, 400], // Attack damage
+    "Kaiju", // Boss name
+    "https://i.imgur.com/Hb4JtAG.jpeg", // Boss image
+    1000000, // Boss hp
+    50 // Boss attack damage
   );
   await gameContract.deployed();
   console.log("Contract deployed to:", gameContract.address);
 
   let txn;
-
   txn = await gameContract.mintCharacterNFT(2);
+  await txn.wait();
+
+  txn = await gameContract.attackBoss();
+  await txn.wait();
+
+  txn = await gameContract.attackBoss();
   await txn.wait();
 
   // Get the value of the NFT's URI.
